@@ -52,9 +52,13 @@ public class Play extends GameState{
     private Array<Crystal> crystals;
     public Play(GameStateManager gsm){
         super(gsm);
+
+        boolean debug = true;
         //World
-        world = new World(new Vector2(0,-9.81f), true); //gravity haru x and y || any body that are inactive are put to sleep
-        b2dr = new Box2DDebugRenderer();
+        world = new World(new Vector2(1f,-9.81f), true); //gravity haru x and y || any body that are inactive are put to sleep
+       if(debug == true) {
+           b2dr = new Box2DDebugRenderer();
+       }
 
 
 
@@ -67,9 +71,9 @@ public class Play extends GameState{
         PolygonShape shape = new PolygonShape();
 
         //Dynamic Body
-        bdef.position.set(160/PPM,300/PPM);
+        bdef.position.set(100/PPM,300/PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
-        bdef.linearVelocity.set(1f,0);
+        System.out.println( bdef.linearVelocity.set(.1f,0));
         body = world.createBody(bdef);
 
 
@@ -169,7 +173,7 @@ public class Play extends GameState{
 //            fdef.filter.maskBits
 
             Body body = world.createBody(bdef);
-            body.createFixture(fdef);
+            body.createFixture(fdef).setUserData("crystal");
             Crystal c = new Crystal(body);
             crystals.add(c);
 
@@ -211,6 +215,18 @@ public class Play extends GameState{
         for (int i=0; i<crystals.size;i++){
             crystals.get(i).update(dt);
         }
+
+        //only after world is rendered
+        Array<Body> bodies = cl.getBodiesToRemove();
+        for (int i=0; i<bodies.size;i++){
+            Body b = bodies.get(i);
+            crystals.removeValue((Crystal) b.getUserData(), true);
+            world.destroyBody(b);
+            player.collectCrystals();
+        }
+        bodies.clear();
+
+
     }
 
 

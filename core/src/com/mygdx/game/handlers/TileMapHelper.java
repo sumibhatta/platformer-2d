@@ -50,7 +50,7 @@ public class TileMapHelper {
         Shape shape= createPolygonShape(polygonMapObject);
         FixtureDef fdef = new FixtureDef();
         fdef.shape = shape;
-        body.createFixture(shape,1000);
+        body.createFixture(shape,1000).setUserData("ground");
         shape.dispose();
     }
 

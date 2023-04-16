@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="40" height="22" tilewidth="32" tileheight="32" infinite="0" nextlayerid="14" nextobjectid="114">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="40" height="22" tilewidth="32" tileheight="32" infinite="0" nextlayerid="14" nextobjectid="126">
  <tileset firstgid="1" source="tilemap.tsx"/>
  <tileset firstgid="121" source="player.tsx"/>
  <tileset firstgid="257" name="background" tilewidth="32" tileheight="32" spacing="1" margin="1" tilecount="2470" columns="38">
@@ -165,16 +165,40 @@
   <object id="109" x="401.333" y="309.333">
    <ellipse/>
   </object>
-  <object id="110" x="204" y="461.333">
+  <object id="114" x="142.5" y="459">
    <ellipse/>
   </object>
-  <object id="111" x="208" y="429.333">
+  <object id="115" x="174.5" y="460">
    <ellipse/>
   </object>
-  <object id="112" x="177.333" y="430.667">
+  <object id="116" x="206.5" y="460.5">
    <ellipse/>
   </object>
-  <object id="113" x="176" y="466.667">
+  <object id="117" x="240.5" y="429.5">
+   <ellipse/>
+  </object>
+  <object id="118" x="277" y="429">
+   <ellipse/>
+  </object>
+  <object id="119" x="307" y="428.5">
+   <ellipse/>
+  </object>
+  <object id="120" x="336.5" y="431">
+   <ellipse/>
+  </object>
+  <object id="121" x="368.5" y="429">
+   <ellipse/>
+  </object>
+  <object id="122" x="401" y="430">
+   <ellipse/>
+  </object>
+  <object id="123" x="399" y="397">
+   <ellipse/>
+  </object>
+  <object id="124" x="367" y="397.5">
+   <ellipse/>
+  </object>
+  <object id="125" x="334" y="399.5">
    <ellipse/>
   </object>
  </objectgroup>
