@@ -229,9 +229,13 @@ public class Play extends GameState{
     @Override
     public void render() {
 
+        //Clear Screen
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        //Camera follows player
+        cam.position.set(player.getPosition().x+315,MyGdxGame.V_HEIGHT/2,0);
+        cam.update();
 
         //draw tiled map
         tmr.setView(cam);
