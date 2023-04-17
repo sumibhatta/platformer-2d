@@ -43,6 +43,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		res = new Content();
 		res.loadTexture("asset/player/player.png", "player");
 		res.loadTexture("asset/map/Objects.png", "coins");
+		res.loadTexture("asset/map/ui.png","ui");
 		sb = new SpriteBatch();
 		cam = new OrthographicCamera();
 		cam.setToOrtho(false, V_WIDTH, V_HEIGHT);
@@ -67,7 +68,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
 //		sb.setProjectionMatrix(hudCam.combined);
 //		sb.begin();
-//		sb.draw(res.getTexture("player"), 0,0);
+//		sb.draw(res.getTexture("ui"), 0,0);
 //		sb.end();
 	}
 	

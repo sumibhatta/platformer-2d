@@ -13,6 +13,7 @@ public class MyContactListener implements ContactListener {
 //    private boolean playerOnGround;
     private int numFootContacts;
     private Array<Body>  bodiesToRemove;
+    private int coinCount;
 
 
     public MyContactListener(){
@@ -41,6 +42,8 @@ public class MyContactListener implements ContactListener {
             numFootContacts++;
         }
 
+
+
         //for crystals
         if(fa.getUserData()!= null && fa.getUserData().equals("crystal")){
 
@@ -63,6 +66,14 @@ public class MyContactListener implements ContactListener {
 //        if(fa == null || fb== null){
 //            return;
 //        }
+
+        //counting numbers of coins and sprite collision
+
+        if(fa.getUserData().equals("player") && fb.getUserData().equals("crystal")){
+            coinCount++;
+        }
+//        System.out.println("coinCount"+coinCount);
+
         if(fa.getUserData()!= null && fa.getUserData().equals("foot")){
 //            System.out.println("fa is foot");
             numFootContacts--;
@@ -76,6 +87,7 @@ public class MyContactListener implements ContactListener {
     }
 
     public Array<Body> getBodiesToRemove(){return bodiesToRemove;}
+    public int getCoinCount(){return coinCount;}
     public boolean isPlayerOnGround(){
         return numFootContacts > 0;
     }

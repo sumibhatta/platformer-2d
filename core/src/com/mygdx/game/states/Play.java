@@ -5,11 +5,8 @@ import static com.mygdx.game.handlers.Box2DVars.PPM;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.MapObjects;
-import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -18,17 +15,14 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.MyGdxGame;
-import com.mygdx.game.entities.B2DSprite;
 import com.mygdx.game.entities.Crystal;
+import com.mygdx.game.entities.HUD;
 import com.mygdx.game.entities.Player;
-import com.mygdx.game.handlers.Box2DVars;
 import com.mygdx.game.handlers.GameStateManager;
 import com.mygdx.game.handlers.MyContactListener;
 import com.mygdx.game.handlers.TileMapHelper;
@@ -50,6 +44,9 @@ public class Play extends GameState{
 
     private Player player;
     private Array<Crystal> crystals;
+
+    //HUD
+    private HUD hud;
     public Play(GameStateManager gsm){
         super(gsm);
 
@@ -73,7 +70,7 @@ public class Play extends GameState{
         //Dynamic Body
         bdef.position.set(100/PPM,300/PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
-        System.out.println( bdef.linearVelocity.set(.1f,0));
+//        System.out.println( bdef.linearVelocity.set(.1f,0));
         body = world.createBody(bdef);
 
 
@@ -139,9 +136,7 @@ public class Play extends GameState{
         sb.setProjectionMatrix(cam.combined);
         player.render(sb);
 
-
-
-
+        hud = new HUD(player, cl);
     }
 
     private void createCrystals() {
@@ -161,7 +156,7 @@ public class Play extends GameState{
             float x = Float.parseFloat((mo.getProperties().get("x").toString())) /PPM;
             float y = Float.parseFloat((mo.getProperties().get("y").toString())) /PPM;
 
-            System.out.println(x+","+y);
+//            System.out.println(x+","+y);
             bdef.position.set(x,y);
 
             CircleShape circleShape = new CircleShape();
@@ -242,6 +237,7 @@ public class Play extends GameState{
         tmr.setView(cam);
         tmr.render();
 
+        //draw player
         sb.setProjectionMatrix(cam.combined);
         player.render(sb);
 
@@ -250,6 +246,9 @@ public class Play extends GameState{
             crystals.get(i).render(sb);
         }
 
+        //draw HUD
+        sb.setProjectionMatrix(hudCam.combined);
+        hud.render(sb);
         b2dr.render(world, b2dCam.combined);
 //        sb.setProjectionMatrix(cam.combined);
 //        sb.begin();
