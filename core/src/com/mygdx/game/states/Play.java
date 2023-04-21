@@ -1,10 +1,13 @@
 package com.mygdx.game.states;
 
+import static com.badlogic.gdx.graphics.g3d.particles.ParticleChannels.Color;
 import static com.mygdx.game.handlers.Box2DVars.PPM;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -235,6 +238,7 @@ public class Play extends GameState{
 
         //Camera follows player
         cam.position.set(player.getPosition().x+315,MyGdxGame.V_HEIGHT/2,0);
+        System.out.println();
         cam.update();
 
         //draw tiled map

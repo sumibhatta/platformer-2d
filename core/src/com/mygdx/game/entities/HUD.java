@@ -1,6 +1,9 @@
 package com.mygdx.game.entities;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.MyGdxGame;
@@ -16,35 +19,42 @@ public class HUD {
     private TextureRegion[][] tmp;
 
 
+    //font for hud
+    private BitmapFont scoreFont ;
+    private GlyphLayout scoreLayout;
+
+
+
 
     public HUD(Player player, MyContactListener cl){
         this.player = player;
         this.cl = cl;
+        this.scoreFont = new BitmapFont(Gdx.files.internal("asset/fonts/score.fnt"));
 
-        Texture tex = MyGdxGame.res.getTexture("ui");
-    countCoins = new TextureRegion[10];
 
-    TextureRegion[][] tmp = TextureRegion.split(tex,
-                tex.getWidth() / 17,
-                tex.getHeight() / 17);
-        int index = 0;
-        for (int i = 8; i < 10; i++) {
-            for (int j = 12; j < 17; j++) {
-                countCoins[index++] = tmp[i][j];
-              System.out.println("From HUD"+i+","+j);
-            }
-        }
+
     }
     public void render(SpriteBatch sb){
-        for(int i = 0; i<10;i++){
-            if(cl.getCoinCount() == i){
-                System.out.println("i is "+i);
-                sb.begin();
-                sb.draw(countCoins[i], 40, 320);
-                sb.end();
-            }
+        Texture tex = MyGdxGame.res.getTexture("coins");
 
-        }
+        TextureRegion[][] tmp = TextureRegion.split(tex,
+                tex.getWidth() / 9,
+                tex.getHeight() / 12);
+        TextureRegion coin = tmp[4][0];
+
+
+
+
+
+        scoreFont.getData().setScale(0.75f);
+        scoreLayout = new GlyphLayout(scoreFont,""+cl.getCoinCount());
+//        System.out.println("Width"+Gdx.graphics.getWidth()/2/PPM);
+
+
+        sb.begin();
+        scoreFont.draw(sb,scoreLayout,50,350);
+        sb.draw(coin, 5, 325, 50, 50);
+        sb.end();
 
     }
 
