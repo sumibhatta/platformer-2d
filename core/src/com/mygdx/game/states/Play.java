@@ -55,7 +55,7 @@ public class Play extends GameState{
 
         boolean debug = true;
         //World
-        world = new World(new Vector2(1f,-9.81f), true); //gravity haru x and y || any body that are inactive are put to sleep
+        world = new World(new Vector2(0,-9.81f), true); //gravity haru x and y || any body that are inactive are put to sleep
        if(debug == true) {
            b2dr = new Box2DDebugRenderer();
        }
@@ -73,8 +73,10 @@ public class Play extends GameState{
         //Dynamic Body
         bdef.position.set(100/PPM,300/PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
-//        System.out.println( bdef.linearVelocity.set(.1f,0));
+        bdef.linearVelocity.set(2f,0);
         body = world.createBody(bdef);
+
+
 
 
         shape.setAsBox(11/PPM,11/PPM);
@@ -192,12 +194,33 @@ public class Play extends GameState{
 //             }
 
         //make player jump
+        //W is pressed then
         if(UserInput.isPressed(UserInput.BUTTON1)){
             if(cl.isPlayerOnGround()){
                 player.getBody().applyForceToCenter(0,200, true);
             }
         }
 
+        //D is pressed then
+        if(UserInput.isPressed(UserInput.BUTTON2)){
+            if(cl.isPlayerOnGround()){
+                player.getBody().applyForceToCenter(100,0,true);
+            }
+        }
+
+        //A is pressed then
+        if(UserInput.isPressed(UserInput.BUTTON3)){
+            if(cl.isPlayerOnGround()){
+                player.getBody().applyForceToCenter(-100,0,true);
+            }
+        }
+
+        //S is pressed then
+        if(UserInput.isPressed(UserInput.BUTTON4)){
+            if(cl.isPlayerOnGround()){
+                player.getBody().applyForceToCenter(0,-200,true);
+            }
+        }
 
 
     }
@@ -238,7 +261,7 @@ public class Play extends GameState{
 
         //Camera follows player
         cam.position.set(player.getPosition().x+315,MyGdxGame.V_HEIGHT/2,0);
-        System.out.println();
+//        System.out.println();
         cam.update();
 
         //draw tiled map

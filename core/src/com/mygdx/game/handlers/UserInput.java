@@ -8,9 +8,13 @@ public class UserInput {
     //previous game state from previous frame
     public static boolean[] pkeys;
 
-    public static final int NUM_KEYS = 2;
+    public static final int NUM_KEYS = 4;
     public static final int BUTTON1 = 0;
     public static final int BUTTON2 = 1;
+
+    public static final int BUTTON3 = 2;
+    public static final int BUTTON4 = 3;
+
 
     //initalize arrays
     static{
