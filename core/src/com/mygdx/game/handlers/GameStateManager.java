@@ -21,7 +21,7 @@ public class GameStateManager {
     public GameStateManager(MyGdxGame game){
         this.game = game;
         gameStates = new Stack<GameState>();
-        pushState(LEVEL);
+        pushState(MENU);
     }
 
     public MyGdxGame game(){return game;}

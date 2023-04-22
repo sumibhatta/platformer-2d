@@ -43,6 +43,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		res = new Content();
 		res.loadTexture("asset/player/player.png", "player");
 		res.loadTexture("asset/map/Objects.png", "coins");
+		res.loadTexture("asset/mob.png", "mobs");
 		res.loadTexture("asset/map/ui.png","ui");
 		res.loadTexture("asset/frontpg/spritesheetfrontscreen.jpg","menu");
 		res.loadTexture("asset/frontpg/enter.png","enter");

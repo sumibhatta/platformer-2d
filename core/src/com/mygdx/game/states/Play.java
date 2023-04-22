@@ -25,6 +25,7 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.entities.Crystal;
 import com.mygdx.game.entities.HUD;
+import com.mygdx.game.entities.Mob;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.handlers.GameStateManager;
 import com.mygdx.game.handlers.MyContactListener;
@@ -50,6 +51,9 @@ public class Play extends GameState{
     private Player player;
     private Body body;
     private Array<Crystal> crystals;
+
+    //Mobs
+    private Array<Mob> mobs;
 
     //HUD
     private HUD hud;
@@ -139,10 +143,42 @@ public class Play extends GameState{
         ////////////////////////////
         createCrystals();
 
+        //Create Mobs
+        createMobs();
+
         sb.setProjectionMatrix(cam.combined);
         player.render(sb);
 
         hud = new HUD(player, cl);
+    }
+
+    private void createMobs() {
+
+        //Array of mobs
+        mobs = new Array<Mob>();
+
+        //Get mobs form map
+        MapLayer ml = tiledMap.getLayers().get("mobs");
+        if(ml == null) return;
+
+        for(MapObject mo : ml.getObjects()) {
+            BodyDef cdef = new BodyDef();
+            cdef.type = BodyDef.BodyType.StaticBody;
+            float x = (float) mo.getProperties().get("x") / PPM;
+            float y = (float) mo.getProperties().get("y") / PPM;
+            cdef.position.set(x, y);
+            Body body = world.createBody(cdef);
+            FixtureDef cfdef = new FixtureDef();
+            CircleShape cshape = new CircleShape();
+            cshape.setRadius(5 / PPM);
+            cfdef.shape = cshape;
+            cfdef.isSensor = true;
+            body.createFixture(cfdef).setUserData("spike");
+            Mob s = new Mob(body);
+            body.setUserData(s);
+            mobs.add(s);
+            cshape.dispose();
+        }
     }
 
     private void createCrystals() {
@@ -235,8 +271,14 @@ public class Play extends GameState{
 
         player.update(dt);
 
+        //update crystals
         for (int i=0; i<crystals.size;i++){
             crystals.get(i).update(dt);
+        }
+
+        // update mobs
+        for(int i = 0; i < mobs.size; i++) {
+            mobs.get(i).update(dt);
         }
 
         //only after world is rendered
@@ -277,6 +319,11 @@ public class Play extends GameState{
         //draw coins
         for (int i=0; i<crystals.size;i++){
             crystals.get(i).render(sb);
+        }
+
+        //draw mobs
+        for(int i = 0; i < mobs.size; i++) {
+            mobs.get(i).render(sb);
         }
 
         //draw HUD
