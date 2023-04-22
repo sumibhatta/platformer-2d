@@ -33,6 +33,8 @@ public class B2DSprite {
     }
 
     public void render(SpriteBatch sb){
+//        System.out.println("Width=");
+//        System.out.println(body.getPosition().x*PPM-width/2);
         sb.begin();
         sb.draw(
                 animation.getFrame(),

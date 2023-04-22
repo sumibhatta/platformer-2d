@@ -32,6 +32,7 @@ import com.mygdx.game.handlers.TileMapHelper;
 import com.mygdx.game.handlers.UserInput;
 
 public class Play extends GameState{
+    boolean debug = true;
 
 //    private BitmapFont font = new BitmapFont();
     private World world;
@@ -46,6 +47,7 @@ public class Play extends GameState{
     private OrthogonalTiledMapRenderer tmr;
 
     private Player player;
+    private Body body;
     private Array<Crystal> crystals;
 
     //HUD
@@ -53,9 +55,9 @@ public class Play extends GameState{
     public Play(GameStateManager gsm){
         super(gsm);
 
-        boolean debug = true;
+
         //World
-        world = new World(new Vector2(0,-9.81f), true); //gravity haru x and y || any body that are inactive are put to sleep
+        world = new World(new Vector2(0,-7f), true); //gravity haru x and y || any body that are inactive are put to sleep
        if(debug == true) {
            b2dr = new Box2DDebugRenderer();
        }
@@ -64,27 +66,25 @@ public class Play extends GameState{
 
         //Create Body
         BodyDef bdef = new BodyDef();
-        Body body = world.createBody(bdef);
+        bdef.type = BodyDef.BodyType.DynamicBody;
+        bdef.position.set(100/PPM,300/PPM);
+
+        body = world.createBody(bdef);
 
         //create fixture
         FixtureDef fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
 
-        //Dynamic Body
-        bdef.position.set(100/PPM,300/PPM);
-        bdef.type = BodyDef.BodyType.DynamicBody;
-        bdef.linearVelocity.set(2f,0);
-        body = world.createBody(bdef);
-
-
-
 
         shape.setAsBox(11/PPM,11/PPM);
         fdef.shape = shape;
+        fdef.friction = 0;
+//        fdef.density = 1;
 //        fdef.restitution = 1f;
 //        fdef.filter.categoryBits = Box2DVars.BIT_PLAYER;
 //        fdef.filter.maskBits = Box2DVars.BIT_GROUND;
         body.createFixture(fdef).setUserData("player");
+//
 
 //       foot sensor - not necessary i think in our case
         shape.setAsBox(5/PPM, 5/PPM, new Vector2(0, -11/PPM), 0);
@@ -228,7 +228,7 @@ public class Play extends GameState{
     @Override
     public void update(float dt) {
         handleInput();
-        world.step(dt, 6, 2);  //dt = 1/60 , accuracy of collision - how many steps we want each body to check for collision
+        world.step(dt, 1, 1);  //dt = 1/60 , accuracy of collision - how many steps we want each body to check for collision
         // accuracy of setting the body position after collision
 
         player.update(dt);
@@ -259,10 +259,10 @@ public class Play extends GameState{
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        //Camera follows player
-        cam.position.set(player.getPosition().x+315,MyGdxGame.V_HEIGHT/2,0);
-//        System.out.println();
+
+        cam.position.set(player.getPosition().x*PPM+MyGdxGame.V_WIDTH/3,MyGdxGame.V_HEIGHT/2,0);
         cam.update();
+
 
         //draw tiled map
         tmr.setView(cam);
@@ -280,7 +280,12 @@ public class Play extends GameState{
         //draw HUD
         sb.setProjectionMatrix(hudCam.combined);
         hud.render(sb);
-        b2dr.render(world, b2dCam.combined);
+        if(debug) {
+            b2dCam.position.set(player.getPosition().x + MyGdxGame.V_WIDTH / 3 / PPM, MyGdxGame.V_HEIGHT / 2 / PPM,0);
+            b2dCam.update();
+            b2dr.render(world, b2dCam.combined);
+
+        }
 //        sb.setProjectionMatrix(cam.combined);
 //        sb.begin();
 //        font.draw(sb, "play state", 100, 100);
