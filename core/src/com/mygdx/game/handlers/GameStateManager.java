@@ -2,6 +2,7 @@ package com.mygdx.game.handlers;
 
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.states.GameState;
+import com.mygdx.game.states.Levels;
 import com.mygdx.game.states.Menu;
 import com.mygdx.game.states.Play;
 
@@ -20,7 +21,7 @@ public class GameStateManager {
     public GameStateManager(MyGdxGame game){
         this.game = game;
         gameStates = new Stack<GameState>();
-        pushState(MENU);
+        pushState(LEVEL);
     }
 
     public MyGdxGame game(){return game;}
@@ -39,7 +40,7 @@ public class GameStateManager {
     private  GameState getState(int state){
         if(state == MENU) return new Menu(this);
         if(state == PLAY) return new Play(this);
-//        if(state == LEVEL) return new Levels(this);
+        if(state == LEVEL) return new Levels(this);
         return null;
     }
 

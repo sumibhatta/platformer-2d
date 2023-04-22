@@ -46,6 +46,10 @@ public class MyGdxGame extends ApplicationAdapter {
 		res.loadTexture("asset/map/ui.png","ui");
 		res.loadTexture("asset/frontpg/spritesheetfrontscreen.jpg","menu");
 		res.loadTexture("asset/frontpg/enter.png","enter");
+		res.loadTexture("asset/background.png","background");
+		res.loadTexture("asset/fonts/score.png","onetwothree");
+		res.loadTexture("asset/fonts/score.png", "font");
+
 
 		sb = new SpriteBatch();
 		cam = new OrthographicCamera();

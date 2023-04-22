@@ -32,6 +32,7 @@ import com.mygdx.game.handlers.TileMapHelper;
 import com.mygdx.game.handlers.UserInput;
 
 public class Play extends GameState{
+    public static int level;
     boolean debug = true;
 
 //    private BitmapFont font = new BitmapFont();
