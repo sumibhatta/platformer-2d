@@ -196,6 +196,7 @@ public class Play extends GameState{
         //make player jump
         //W is pressed then
         if(UserInput.isPressed(UserInput.BUTTON1)){
+
             if(cl.isPlayerOnGround()){
                 player.getBody().applyForceToCenter(0,200, true);
             }

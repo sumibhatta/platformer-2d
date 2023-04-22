@@ -44,6 +44,9 @@ public class MyGdxGame extends ApplicationAdapter {
 		res.loadTexture("asset/player/player.png", "player");
 		res.loadTexture("asset/map/Objects.png", "coins");
 		res.loadTexture("asset/map/ui.png","ui");
+		res.loadTexture("asset/frontpg/spritesheetfrontscreen.jpg","menu");
+		res.loadTexture("asset/frontpg/enter.png","enter");
+
 		sb = new SpriteBatch();
 		cam = new OrthographicCamera();
 		cam.setToOrtho(false, V_WIDTH, V_HEIGHT);
