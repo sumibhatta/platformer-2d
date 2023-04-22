@@ -173,7 +173,7 @@ public class Play extends GameState{
             cshape.setRadius(5 / PPM);
             cfdef.shape = cshape;
             cfdef.isSensor = true;
-            body.createFixture(cfdef).setUserData("spike");
+            body.createFixture(cfdef).setUserData("mobs");
             Mob s = new Mob(body);
             body.setUserData(s);
             mobs.add(s);
@@ -269,7 +269,17 @@ public class Play extends GameState{
         world.step(dt, 1, 1);  //dt = 1/60 , accuracy of collision - how many steps we want each body to check for collision
         // accuracy of setting the body position after collision
 
+        //update player
         player.update(dt);
+
+        //TODO: Check for playerwin
+        //
+
+        //Check for player lost
+        if(cl.isPlayerDead()) {
+            System.out.println("dead");
+            gsm.setState(GameStateManager.MENU);
+        }
 
         //update crystals
         for (int i=0; i<crystals.size;i++){

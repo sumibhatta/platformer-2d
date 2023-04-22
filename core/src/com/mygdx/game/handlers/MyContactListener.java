@@ -14,6 +14,7 @@ public class MyContactListener implements ContactListener {
     private int numFootContacts;
     private Array<Body>  bodiesToRemove;
     private int coinCount;
+    private boolean playerDead;
 
 
     public MyContactListener(){
@@ -55,6 +56,13 @@ public class MyContactListener implements ContactListener {
             //remove crystals
             bodiesToRemove.add(fb.getBody());
         }
+        if(fa.getUserData()!=null && fa.getUserData().equals("mobs")){
+            playerDead = true;
+        }
+
+        if(fb.getUserData()!=null && fb.getUserData().equals("mobs")){
+            playerDead = true;
+        }
     }
 
     @Override
@@ -62,7 +70,7 @@ public class MyContactListener implements ContactListener {
         Fixture fa = contact.getFixtureA();
         Fixture fb = contact.getFixtureB();
 
-        System.out.println(fa.getUserData()+","+fb.getUserData());
+//        System.out.println(fa.getUserData()+","+fb.getUserData());
 //        if(fa == null || fb== null){
 //            return;
 //        }
@@ -91,6 +99,8 @@ public class MyContactListener implements ContactListener {
     public boolean isPlayerOnGround(){
         return numFootContacts > 0;
     }
+
+    public boolean isPlayerDead() { return playerDead; }
 
 
 
